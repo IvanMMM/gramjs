@@ -245,6 +245,10 @@ export async function _updateLoop(client: TelegramClient) {
                 console.error(err);
             }
 
+            if (client._onLoopError) {
+                client._onLoopError(err as Error);
+            }
+
             lastPongAt = undefined;
 
             if (client._sender!.isReconnecting || client._isSwitchingDc) {

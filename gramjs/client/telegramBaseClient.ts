@@ -197,6 +197,8 @@ export abstract class TelegramBaseClient {
     public useWSS: boolean;
 
     /** @hidden */
+    public _onLoopError?: (error: Error) => void;
+    /** @hidden */
     public _eventBuilders: [EventBuilder, CallableFunction][];
     /** @hidden */
     public _entityCache: EntityCache;
@@ -582,5 +584,9 @@ export abstract class TelegramBaseClient {
 
     get logger() {
         return this._log;
+    }
+
+    set loopErrorHandler(callback: (error: Error) => void) {
+        this._onLoopError = callback;
     }
 }
